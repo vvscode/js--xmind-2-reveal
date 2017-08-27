@@ -1,0 +1,23 @@
+{
+  "name": "xmind2reveal",
+  "version": "0.0.0",
+  "description": "Convert mind maps (xmind) into reveal-based presentations",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vvscode/js--xmind-2-reveal.git"
+  },
+  "keywords": [
+    "xmind",
+    "reveal"
+  ],
+  "author": "Vasil vvscode Vanchuk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vvscode/js--xmind-2-reveal/issues"
+  },
+  "homepage": "https://github.com/vvscode/js--xmind-2-reveal#readme"
+}
