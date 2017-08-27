@@ -19,5 +19,9 @@
   "bugs": {
     "url": "https://github.com/vvscode/js--xmind-2-reveal/issues"
   },
-  "homepage": "https://github.com/vvscode/js--xmind-2-reveal#readme"
+  "homepage": "https://github.com/vvscode/js--xmind-2-reveal#readme",
+  "dependencies": {
+    "reveal.js": "3.5.0",
+    "xmind": "0.5.0"
+  }
 }
