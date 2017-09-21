@@ -12,30 +12,25 @@ const mindMapSheet = mindMap.sheets[0];
 const mainTemplate = fs
   .readFileSync(`${__dirname}/templates/${templateName}/index.html`)
   .toString();
+
 const sectionTemplate = fs
   .readFileSync(`${__dirname}/templates/${templateName}/section.html`)
   .toString();
 
-console.log(require('util').inspect(mindMapSheet));
+const getSectionHtml = ({ title, children }, sectionLevel) =>
+  _.template(sectionTemplate)({
+    title,
+    sectionLevel,
+    sections: children.map(section => getSectionHtml(section, sectionLevel + 1))
+  });
 
-const getSectionHtml = section => {
-  console.log('getSectionHtml', util.inspect(section));
-
-  return _.template(sectionTemplate)();
-};
-
-const getPageHtml = sheet => {
-  console.log('getPageHtml');
-
-  const mainTemplateOptions = {
-    title: mindMapSheet.title
-  };
-
-  return _.template(mainTemplate)(mainTemplateOptions).replace(
-    '{{outlet}}',
-    mindMapSheet.rootTopic.children.map(getSectionHtml).join('')
-  );
-};
+const getPageHtml = sheet =>
+  _.template(mainTemplate)({
+    title: mindMapSheet.title,
+    sections: mindMapSheet.rootTopic.children.map(section =>
+      getSectionHtml(section, 0)
+    )
+  });
 
 fs.writeFileSync(`${__dirname}/example/index.html`, getPageHtml(mindMapSheet));
 
