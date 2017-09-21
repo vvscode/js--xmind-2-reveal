@@ -21,7 +21,13 @@
   },
   "homepage": "https://github.com/vvscode/js--xmind-2-reveal#readme",
   "dependencies": {
+    "eslint": "^4.7.1",
+    "lodash": "^4.17.4",
     "reveal.js": "3.5.0",
     "xmind": "0.5.0"
+  },
+  "devDependencies": {
+    "eslint-config-google": "^0.9.1",
+    "nodemon": "^1.12.1"
   }
 }
