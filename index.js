@@ -17,10 +17,11 @@ const sectionTemplate = fs
   .readFileSync(`${__dirname}/templates/${templateName}/section.html`)
   .toString();
 
-const getSectionHtml = ({ title, children }, sectionLevel) =>
+const getSectionHtml = ({ title, id, children }, sectionLevel) =>
   _.template(sectionTemplate)({
     title,
     sectionLevel,
+    id,
     sections: children.map(section => getSectionHtml(section, sectionLevel + 1))
   });
 
