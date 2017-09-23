@@ -17,13 +17,29 @@ const sectionTemplate = fs
   .readFileSync(`${__dirname}/templates/${templateName}/section.html`)
   .toString();
 
-const getSectionHtml = ({ section: { title, id, children }, sectionLevel }) =>
+const getSectionHtml = ({
+  section: { title, id, children },
+  sectionLevel = 0,
+  breadcrumbs = []
+}) =>
   _.template(sectionTemplate)({
     title,
     sectionLevel,
     id,
+    breadcrumbs,
     sections: children.map(section =>
-      getSectionHtml({ section, sectionLevel: sectionLevel + 1 })
+      getSectionHtml({
+        section,
+        sectionLevel: sectionLevel + 1,
+        breadcrumbs: [
+          ...breadcrumbs,
+          {
+            title,
+            id,
+            sectionLevel
+          }
+        ]
+      })
     )
   });
 
@@ -31,7 +47,7 @@ const getPageHtml = sheet =>
   _.template(mainTemplate)({
     title: mindMapSheet.title,
     sections: mindMapSheet.rootTopic.children.map(section =>
-      getSectionHtml({ section, sectionLevel: 0 })
+      getSectionHtml({ section, sectionLevel: 0, breadcrumbs: [] })
     )
   });
 
