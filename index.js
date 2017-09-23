@@ -2,7 +2,6 @@ const fs = require('fs');
 const htmlBeautify = require('html-beautify');
 const xmind = require('xmind');
 const _ = require('lodash');
-const util = require('util');
 
 const mindMapFileName = `${__dirname}/example/weight-loss program.xmind`;
 const templateName = 'base';
@@ -19,16 +18,16 @@ const sectionTemplate = fs
   .toString();
 
 const getSectionHtml = ({
-  section: { title, id, children },
+  section: {title, id, children},
   sectionLevel = 0,
-  breadcrumbs = []
+  breadcrumbs = [],
 }) =>
   _.template(sectionTemplate)({
     title,
     sectionLevel,
     id,
     breadcrumbs,
-    sections: children.map(section =>
+    sections: children.map((section) =>
       getSectionHtml({
         section,
         sectionLevel: sectionLevel + 1,
@@ -37,19 +36,19 @@ const getSectionHtml = ({
           {
             title,
             id,
-            sectionLevel
-          }
-        ]
+            sectionLevel,
+          },
+        ],
       })
-    )
+    ),
   });
 
-const getPageHtml = sheet =>
+const getPageHtml = (sheet) =>
   _.template(mainTemplate)({
     title: mindMapSheet.title,
-    sections: mindMapSheet.rootTopic.children.map(section =>
-      getSectionHtml({ section, sectionLevel: 0, breadcrumbs: [] })
-    )
+    sections: mindMapSheet.rootTopic.children.map((section) =>
+      getSectionHtml({section, sectionLevel: 0, breadcrumbs: []})
+    ),
   });
 
 fs.writeFileSync(
