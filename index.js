@@ -1,4 +1,5 @@
 const fs = require('fs');
+const htmlBeautify = require('html-beautify');
 const xmind = require('xmind');
 const _ = require('lodash');
 const util = require('util');
@@ -17,22 +18,43 @@ const sectionTemplate = fs
   .readFileSync(`${__dirname}/templates/${templateName}/section.html`)
   .toString();
 
-const getSectionHtml = ({ title, id, children }, sectionLevel) =>
+const getSectionHtml = ({
+  section: { title, id, children },
+  sectionLevel = 0,
+  breadcrumbs = []
+}) =>
   _.template(sectionTemplate)({
     title,
     sectionLevel,
     id,
-    sections: children.map(section => getSectionHtml(section, sectionLevel + 1))
+    breadcrumbs,
+    sections: children.map(section =>
+      getSectionHtml({
+        section,
+        sectionLevel: sectionLevel + 1,
+        breadcrumbs: [
+          ...breadcrumbs,
+          {
+            title,
+            id,
+            sectionLevel
+          }
+        ]
+      })
+    )
   });
 
 const getPageHtml = sheet =>
   _.template(mainTemplate)({
     title: mindMapSheet.title,
     sections: mindMapSheet.rootTopic.children.map(section =>
-      getSectionHtml(section, 0)
+      getSectionHtml({ section, sectionLevel: 0, breadcrumbs: [] })
     )
   });
 
-fs.writeFileSync(`${__dirname}/example/index.html`, getPageHtml(mindMapSheet));
+fs.writeFileSync(
+  `${__dirname}/example/index.html`,
+  htmlBeautify(getPageHtml(mindMapSheet))
+);
 
 console.log(new Date(), 'Done');

@@ -1,8 +1,8 @@
-<section class="section section-level-<%= sectionLevel %>" id="<%=id%>">
-  <h<%=Math.min(sectionLevel + 1, 6) %>>
-    <%= title %>
-  </h<%=Math.min(sectionLevel + 1, 6) %>>
+<section>
+  <span><%= title %>:
+    <%=Math.min(sectionLevel + 1, 6) %>>
+    <%= (breadcrumbs || []).map(i => i.title).join(' |> ') %>
+  </span>
 
-
-  <%= sections.join('') %>
+  <%= (sections|| []).join('\n') %>
 </section>
