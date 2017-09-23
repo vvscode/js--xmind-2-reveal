@@ -1,4 +1,5 @@
 const fs = require('fs');
+const htmlBeautify = require('html-beautify');
 const xmind = require('xmind');
 const _ = require('lodash');
 const util = require('util');
@@ -51,6 +52,9 @@ const getPageHtml = sheet =>
     )
   });
 
-fs.writeFileSync(`${__dirname}/example/index.html`, getPageHtml(mindMapSheet));
+fs.writeFileSync(
+  `${__dirname}/example/index.html`,
+  htmlBeautify(getPageHtml(mindMapSheet))
+);
 
 console.log(new Date(), 'Done');
