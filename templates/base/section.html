@@ -1,8 +1,6 @@
 <section>
-  <span><%= title %>:
-    <%=Math.min(sectionLevel + 1, 6) %>>
-    <%= (breadcrumbs || []).map(i => i.title).join(' |> ') %>
-  </span>
+  <!-- section level: <%= sectionLevel %> -->
+  <%= title %>
 
-  <%= (sections|| []).join('\n') %>
+    <%= (sectionLevel < 1) ? sections.join('') : '' %>
 </section>
