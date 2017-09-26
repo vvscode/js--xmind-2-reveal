@@ -12,7 +12,10 @@
     "type": "git",
     "url": "git+https://github.com/vvscode/js--xmind-2-reveal.git"
   },
-  "keywords": ["xmind", "reveal"],
+  "keywords": [
+    "xmind",
+    "reveal"
+  ],
   "author": "Vasil [vvscode] Vanchuk",
   "license": "ISC",
   "bugs": {
@@ -24,7 +27,8 @@
     "html-beautify": "1.0.4",
     "lodash": "4.17.4",
     "reveal.js": "3.5.0",
-    "xmind": "0.5.0"
+    "xmind": "0.5.0",
+    "yargs": "^9.0.1"
   },
   "devDependencies": {
     "eslint-config-google": "^0.9.1",
