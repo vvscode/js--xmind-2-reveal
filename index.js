@@ -1,10 +1,35 @@
+/* INCLUDES */
 const fs = require('fs');
 const htmlBeautify = require('html-beautify');
 const xmind = require('xmind');
 const _ = require('lodash');
+const packageConfig = require('./package.json');
 
-const mindMapFileName = `${__dirname}/example/weight-loss program.xmind`;
-const templateName = 'flat';
+/* ARGUMENTS PARSING */
+const ArgumentParser = require('argparse').ArgumentParser;
+const parser = new ArgumentParser({
+  version: packageConfig.version,
+  addHelp: true,
+  description: packageConfig.description,
+  epilog: 'by vvscode',
+});
+
+parser.addArgument(['-t', '--template'], {
+  help: 'Template name for generating',
+  choices: ['base', 'flat'],
+  defaultValue: 'flat',
+});
+
+parser.addArgument(['-p', '--path'], {
+  help: 'Path to xmind-file for conversion',
+  defaultValue: `${__dirname}/example/weight-loss program.xmind`,
+});
+
+let args = parser.parseArgs();
+
+/* CONNVERSION */
+const mindMapFileName = args.path;
+const templateName = args.template;
 
 const mindMap = xmind.open(mindMapFileName).toPlainObject();
 const mindMapSheet = mindMap.sheets[0];
@@ -56,4 +81,6 @@ fs.writeFileSync(
   htmlBeautify(getPageHtml(mindMapSheet))
 );
 
-console.log(new Date(), 'Done');
+console.log(
+  `Convertion ${mindMapFileName} with "${templateName}" template done`
+);

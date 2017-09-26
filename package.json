@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/vvscode/js--xmind-2-reveal#readme",
   "dependencies": {
+    "argparse": "^1.0.9",
     "eslint": "4.7.2",
     "html-beautify": "1.0.4",
     "lodash": "4.17.4",
