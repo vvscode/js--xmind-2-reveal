@@ -4,7 +4,7 @@ const xmind = require('xmind');
 const _ = require('lodash');
 
 const mindMapFileName = `${__dirname}/example/weight-loss program.xmind`;
-const templateName = 'base';
+const templateName = 'flat';
 
 const mindMap = xmind.open(mindMapFileName).toPlainObject();
 const mindMapSheet = mindMap.sheets[0];
