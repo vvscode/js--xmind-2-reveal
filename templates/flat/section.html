@@ -1,6 +1,10 @@
 <section>
   <!-- section level: <%= sectionLevel %> -->
-  <%= breadcrumbs.map(i => i.title).join(' > ') %> >
+  <h6>
+    <%= breadcrumbs.map(i => i.title).join(' > ') %>
+  </h6>
+  <h2>
     <%= title %>
+  </h2>
 </section>
 <%= sections.join('')  %>
